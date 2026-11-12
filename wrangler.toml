@@ -9,7 +9,7 @@ directory = "./public"
 # Dove vengono salvati gli username (incolla qui l'id che ottieni al passo 4 della guida)
 [[kv_namespaces]]
 binding = "UTENTI"
-id = "9b376804458647d5bac0914f3f1e47c9"
+id = "3847aba7945f4b0991fc25c71ac6dd44"
 
 [vars]
 # Link del tuo gioco: gli utenti ci arrivano dopo la registrazione
