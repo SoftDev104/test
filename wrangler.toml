@@ -9,8 +9,8 @@ directory = "./public"
 # Dove vengono salvati gli username (incolla qui l'id che ottieni al passo 4 della guida)
 [[kv_namespaces]]
 binding = "UTENTI"
-id = "INCOLLA_QUI_L_ID"
+id = "9b376804458647d5bac0914f3f1e47c9"
 
 [vars]
 # Link del tuo gioco: gli utenti ci arrivano dopo la registrazione
-GAME_URL = "https://il-tuo-sito.example/gioco"
+GAME_URL = "https://onlyfans.com/my/profile"
