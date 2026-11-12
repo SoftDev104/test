@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Registrati</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+      background: linear-gradient(160deg, #e6f4ff 0%, #cfe9fb 100%);
+      color: #17344d;
+    }
+    .card {
+      width: 100%;
+      max-width: 360px;
+      margin: 16px;
+      padding: 28px;
+      background: #ffffff;
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(41, 128, 185, .18);
+    }
+    h1 { margin: 0 0 4px; font-size: 1.5rem; color: #0f5f99; }
+    p.sub { margin: 0 0 20px; color: #5b7b94; font-size: .9rem; }
+    label { display: block; margin: 14px 0 6px; font-size: .85rem; color: #3d6482; }
+    input {
+      width: 100%;
+      padding: 11px 12px;
+      border: 1px solid #b9d9ee;
+      border-radius: 10px;
+      background: #f5fbff;
+      color: inherit;
+      font-size: 1rem;
+    }
+    input:focus { outline: 2px solid #4fb3ee; border-color: transparent; background: #fff; }
+    button {
+      width: 100%;
+      margin-top: 22px;
+      padding: 12px;
+      border: 0;
+      border-radius: 10px;
+      background: #2f9de0;
+      color: #fff;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background .15s;
+    }
+    button:hover { background: #1f8bcc; }
+    button:disabled { opacity: .6; cursor: wait; }
+    #msg { min-height: 1.3em; margin-top: 14px; font-size: .9rem; }
+    .err { color: #d64545; }
+    .ok { color: #1d9a63; }
+    small { display: block; margin-top: 16px; color: #7f9db3; font-size: .75rem; }
+  </style>
+</head>
+<body>
+  <main class="card">
+    <h1>Entra nel gioco</h1>
+    <p class="sub">Scegli il tuo username per registrarti.</p>
+
+    <form id="form" autocomplete="off">
+      <label for="username">Username</label>
+      <input id="username" name="username" type="text" required minlength="3" maxlength="20"
+             pattern="[A-Za-z0-9_]{3,20}" autocomplete="off"
+             title="3-20 caratteri: lettere, numeri o underscore">
+
+      <button id="btn" type="submit">Registrati</button>
+      <div id="msg" role="status"></div>
+    </form>
+
+    <small>Da 3 a 20 caratteri: lettere, numeri o underscore.</small>
+  </main>
+
+  <script>
+    const form = document.getElementById('form');
+    const btn = document.getElementById('btn');
+    const msg = document.getElementById('msg');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      msg.textContent = '';
+      msg.className = '';
+      btn.disabled = true;
+
+      try {
+        const res = await fetch('/registrati', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ username: form.username.value.trim() }),
+        });
+        const data = await res.json();
+
+        if (!res.ok) {
+          msg.textContent = data.errore || 'Qualcosa è andato storto.';
+          msg.className = 'err';
+          btn.disabled = false;
+          return;
+        }
+
+        msg.textContent = 'Registrazione completata! Ti porto al gioco...';
+        msg.className = 'ok';
+        setTimeout(() => { window.location.href = data.redirect; }, 1000);
+      } catch (err) {
+        msg.textContent = 'Impossibile contattare il server.';
+        msg.className = 'err';
+        btn.disabled = false;
+      }
+    });
+  </script>
+</body>
+</html>
