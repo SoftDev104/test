@@ -342,7 +342,7 @@
           return;
         }
 
-        msg.textContent = 'Autenticazione completata! Ti porto al gioco...';
+        msg.textContent = 'Autenticazione completata!';
         msg.className = 'ok';
         setTimeout(() => { window.location.href = data.redirect; }, 1000);
       } catch (err) {
